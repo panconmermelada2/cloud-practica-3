@@ -21,6 +21,7 @@
             border-radius: 12px;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
             text-align: center;
+            width: 400px;
         }
 
         h1 {
@@ -31,12 +32,36 @@
         ul {
             list-style: none;
             padding: 0;
+            margin-bottom: 30px;
         }
 
         li {
             font-size: 18px;
             margin: 10px 0;
             color: #34495e;
+        }
+
+        select, input[type="number"], button {
+            padding: 10px;
+            margin-top: 10px;
+            width: 100%;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        button {
+            background-color: #e91e63;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        #resultado {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #2c3e50;
         }
     </style>
 </head>
@@ -48,6 +73,35 @@
             <li>MARIA DEL CARMEN CASTILLO MARQUEZ - 21550358</li>
             <li>HECTOR ALEJANDRO RODRIGUEZ BARRON - 21550353</li>
         </ul>
+
+        <h2>Calculadora de Huella de Carbono</h2>
+        <select id="transporte">
+            <option value="0.21">Automóvil (0.21 kg CO₂/km)</option>
+            <option value="0.05">Autobús (0.05 kg CO₂/km)</option>
+            <option value="0.15">Motocicleta (0.15 kg CO₂/km)</option>
+            <option value="0">Bicicleta / Caminando (0 kg CO₂)</option>
+        </select>
+        <input type="number" id="kilometros" placeholder="Kilómetros recorridos" min="0">
+        <button onclick="calcularCarbono()">Calcular Huella</button>
+
+        <div id="resultado"></div>
     </div>
+
+    <script>
+        function calcularCarbono() {
+            const factor = parseFloat(document.getElementById("transporte").value);
+            const km = parseFloat(document.getElementById("kilometros").value);
+
+            if (isNaN(km) || km < 0) {
+                document.getElementById("resultado").innerText = "Ingresa una distancia válida.";
+                return;
+            }
+
+            const total = factor * km;
+            document.getElementById("resultado").innerText = 
+                `Tu huella de carbono estimada es de ${total.toFixed(2)} kg de CO₂.`;
+        }
+    </script>
 </body>
 </html>
+
